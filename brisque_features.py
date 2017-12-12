@@ -1,3 +1,6 @@
+# Python code for BRISQUE model
+# Original paper title: No-Reference Image Quality Assessment in the Spatial Domain
+# Link: http://ieeexplore.ieee.org/document/6272356/
 import cv2
 import numpy as np
 from scipy import ndimage
