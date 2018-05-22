@@ -1,12 +1,16 @@
 # Python code for BRISQUE model
 # Original paper title: No-Reference Image Quality Assessment in the Spatial Domain
 # Link: http://ieeexplore.ieee.org/document/6272356/
+
+# To-Do : Verify and add rest functions from https://github.com/RentTheRunway/Eigenstyle/tree/master/brisque_revised
+# Add understandable comments.
+
 import cv2
 import numpy as np
 from scipy import ndimage
 import math
     
-def get_gaussian_filter():
+def get_gaussian_filter(shape, sigma):
     [m,n] = [(ss - 1.0) / 2.0 for ss in (shape,shape)]
     [y,x] = np.ogrid[-m:m+1,-n:n+1]
     window = np.exp( -(x*x + y*y) / (2.0*sigma*sigma) )
@@ -38,7 +42,7 @@ def lmom(X):
 
 def compute_features(im):
     im = im.astype(np.float)
-    window = get_gaussian_filter()
+    window = get_gaussian_filter(5, 0.5) # shape - (shape, shape) = window size and sigma = 0.5 (generally) 
     scalenum = 2
     feat = []
     for itr_scale in range(scalenum):
@@ -64,4 +68,4 @@ def compute_features(im):
 
 im = ndimage.imread('example.bmp', flatten=True)
 feat = compute_features(im)
-print feat
+print(feat) # for python3.6 support 
